@@ -1,0 +1,23 @@
+/* Forms style. */
+input {
+    width: 100%;
+    background: none;
+    color: var(--white)!important;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid var(--white);
+    opacity: 0.9;
+    cursor: pointer;
+    transition-duration: 1s;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 12px!important;
+}
+input:hover {
+    opacity: 1.0;
+}
+input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.5;
+}

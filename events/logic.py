@@ -1,0 +1,39 @@
+import logging
+from datetime import datetime
+from typing import Dict, List
+
+from django.db.models.query import QuerySet
+
+from events.models import Event
+
+logger: logging.RootLogger = logging.getLogger(__name__)
+
+
+class EventLogic:
+    """
+    Business logic related to Event.
+    """
+
+    def __init__(self, event: Event) -> None:
+        """
+        Event Logic constructor.
+        """
+        self.event: Event = event
+
+    def __str__(self) -> str:
+        """
+        String serializer.
+        """
+        return f"<{self.__class__.__name__}: {self.event}>"
+
+    @classmethod
+    def get_events(cls, start: datetime, end: datetime) -> QuerySet:
+        """
+        Returns events by date range.
+        """
+        events: QuerySet = Event.active.filter(
+            created_at__gte=start,
+            created_at__lte=end,
+        )
+        logger.debug("Events: %s %s", cls, events)
+        return events

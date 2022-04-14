@@ -1,0 +1,86 @@
+{
+    "title": [
+        "title",
+        "og:title",
+        "article:title",
+        "twitter:title",
+        "facebook:title",
+        "instagram:title"
+    ],
+    "site": [
+        "site",
+        "og:site",
+        "article:site",
+        "twitter:site",
+        "facebook:site",
+        "instagram:site"
+    ],
+    "image": [
+        "image",
+        "og:image",
+        "article:image",
+        "twitter:image",
+        "facebook:image",
+        "instagram:image"
+    ],
+    "description": [
+        "description",
+        "og:description",
+        "article:description",
+        "twitter:description",
+        "facebook:description",
+        "instagram:description"
+    ],
+    "locale": [
+        "locale",
+        "og:locale",
+        "article:locale",
+        "twitter:locale",
+        "facebook:locale",
+        "instagram:locale"
+    ],
+    "keywords": [
+        "keywords",
+        "og:keywords",
+        "article:keywords",
+        "twitter:keywords",
+        "facebook:keywords",
+        "instagram:keywords"
+    ],
+    "author": [
+        "author",
+        "og:author",
+        "article:author",
+        "twitter:author",
+        "facebook:author",
+        "instagram:author"
+    ],
+    "viewport": [
+        "viewport",
+        "og:viewport",
+        "article:viewport",
+        "twitter:viewport",
+        "facebook:viewport",
+        "instagram:viewport"
+    ],
+    "published_at": [
+        "modified_time",
+        "og:modified_time",
+        "article:modified_time",
+        "twitter:modified_time",
+        "facebook:modified_time",
+        "instagram:modified_time",
+        "published_time",
+        "og:published_time",
+        "article:published_time",
+        "twitter:published_time",
+        "facebook:published_time",
+        "instagram:published_time",
+        "published_date",
+        "og:published_date",
+        "article:published_date",
+        "twitter:published_date",
+        "facebook:published_date",
+        "instagram:published_date"
+    ]
+}

@@ -1,0 +1,122 @@
+{% load reports %}
+
+<div id="heat-chart-{{ id }}"></div>
+<script>
+    $(document).ready(() => {
+
+        let data = [
+            {% for category, subcategories in data.items %}
+                {% if forloop.counter <= 50 %}
+                    {
+                        name: '{{ category }}',
+                        data: [
+                            {% for bucket, total in subcategories.items %}
+                                {
+                                    x: "{{ bucket }}",
+                                    y: {{ total }},
+                                },
+                            {% endfor %}
+                        ],
+                    },
+                {% endif %}
+            {% endfor %}
+        ]
+
+        var options = {
+
+            // Heatmap dataset.
+            series: data,
+
+            // Chart configuration.
+            chart: {
+                height: "300px",
+                width: "100%",
+                type: "heatmap",
+                parentHeightOffset: 0,
+                padding: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                },  
+                toolbar: {
+                    show: false,
+                },
+                animations: {
+                    enabled: false
+                },
+            },
+
+            // Hiding values on each box.
+            dataLabels: {
+                enabled: false
+            },
+
+            // Heatmap colors.
+            colors: [
+                "#330033",
+            ],
+
+            // x-axis style.
+            // https://apexcharts.com/docs/options/xaxis/
+            xaxis: {
+                type: "category",
+                hideOverlappingLabels: true,
+                decimalsInFloat: 0,
+                labels: {
+                    rotate: -90,
+                    show: true,
+                    style: {
+                        colors: "#EDEDED",
+                        fontSize: "10px",
+                        fontFamily: "Montserrat",
+                    }
+                },
+                title: {
+                    show: false,
+                },
+            },
+
+            stroke: {
+                opacity: 0
+            },
+
+            // y-axis style.
+            // https://apexcharts.com/docs/options/yaxis/
+            yaxis: {
+                type: "numeric",
+                decimalsInFloat: 0,
+                title: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: true,
+                    color: "#EDEDED",
+                },
+                labels: {
+                    show: true,
+                    style: {
+                        colors: "#EDEDED",
+                        fontSize: "10px",
+                        fontFamily: "Montserrat",
+                    }
+                },
+            },
+
+            // Tooltips configuration.
+            tooltip: {
+                custom: function(context) {
+                    let point = data[context.seriesIndex].data[context.dataPointIndex]
+                    let category = data[context.seriesIndex].name
+                    return `<p><b>${ category }, ${ point.x }</b>: ${ point.y } </p>`
+                }
+            }
+
+        }
+
+        // Rendering chart when the page loads.
+        let chart = new ApexCharts(document.querySelector("#heat-chart-{{ id }}"), options)
+        chart.render()
+
+    })
+</script>

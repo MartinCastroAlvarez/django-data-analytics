@@ -1,0 +1,94 @@
+<div id="pie-chart-{{ id }}"></div>
+<script>
+    $(document).ready(() => {
+
+        let data = [
+            {% for category, total in data.items %}
+                {% if forloop.counter <= 10 %}
+                    {
+                        x: "{% firstof category.title category %}",
+                        y: {{ total }},
+                    },
+                {% endif %}
+            {% endfor %}
+        ]
+
+        let options = {
+
+            // Chart data.
+            series: data.map(x => x.y),
+            labels: data.map(x => x.x),
+
+            // Chart configuration.
+            chart: {
+                height: "300px",
+                width: "100%",
+                type: "donut",
+                padding: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                },  
+                toolbar: {
+                    show: false,
+                },
+            },
+
+            // Pie chart borders.
+            stroke: {
+                show: true,
+                curve: 'smooth',
+                lineCap: 'butt',
+                colors: ['none', ],
+                width: 2,
+                dashArray: 0,      
+            },
+
+            // Pie chart custom properties.
+            plotOptions: {
+                pie: {
+                    startAngle: -90,
+                    endAngle: 270,
+                }
+            },
+
+            // Labels on top of each piece.
+            dataLabels: {
+                formatter(val, opts) {
+                    const name = opts.w.globals.labels[opts.seriesIndex]
+                    return [name, val.toFixed(1) + '%']
+                },
+                style: {
+                    color: "#330033",
+                    fontSize: "10px",
+                    fontFamily: "Montserrat",
+                }
+            },
+
+            // Colors for the categories.
+            fill: {
+                colors: ["#EDEDED", "#BDC3C7"],
+            },
+
+            // Categories legend.
+            legend: {
+                show: false,
+            },
+
+            // Tooltips configuration.
+            tooltip: {
+                custom: function(context) {
+                    let point = data[context.seriesIndex]
+                    return `<p><b>${ point.x }</b>: ${ point.y } </p>`
+                }
+            },
+
+        }
+
+        // Rendering chart when the page loads.
+        let chart = new ApexCharts(document.querySelector("#pie-chart-{{ id }}"), options)
+        chart.render()
+
+    })
+</script>

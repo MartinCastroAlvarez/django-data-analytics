@@ -1,0 +1,80 @@
+<div id="map-chart-{{ id }}" style="width: 100%; height: 300px;"></div>
+<script>
+    $(document).ready(() => {
+
+        let dataset = [
+            {% for category, total in data.items %}
+                {% if forloop.counter < 30 %}
+                    {
+                        x: "{{ category.title }}",
+                        y: {{ total }},
+                    },
+                {% endif %}
+            {% endfor %}
+        ]
+
+        // Dataset configuration.
+        var data = [{
+            type: "choropleth",
+            locationmode: "country names",
+            locations: dataset.map(x => x.x),
+            showscale: false,
+            z: dataset.map(x => x.y),
+            text: dataset.map(x => x.x),
+            colorscale: [
+                [0.0, 'rgba(255, 255, 255, 0.5)'],
+                [0.1, 'rgba(255, 255, 255, 0.6)'],
+                [0.2, 'rgba(255, 255, 255, 0.6)'],
+                [0.3, 'rgba(255, 255, 255, 0.7)'],
+                [0.4, 'rgba(255, 255, 255, 0.7)'],
+                [0.5, 'rgba(255, 255, 255, 0.8)'],
+                [0.6, 'rgba(255, 255, 255, 0.8)'],
+                [0.7, 'rgba(255, 255, 255, 0.9)'],
+                [0.8, 'rgba(255, 255, 255, 0.9)'],
+                [0.9, 'rgba(255, 255, 255, 1.0)'],
+                [1.0, 'rgba(255, 255, 255, 1.0)'],
+            ],
+        }];
+
+        // Layout configuration.
+        let layout = {
+            plot_bgcolor: "#FFF0",
+            paper_bgcolor: "#FFF0",
+            showlegend: false,
+            geo: {
+                scope: '{{ scope|default:"world" }}',
+                bgcolor: 'rgba(0,0,0,0)',
+                showocean: true,
+                coastlinecolor: "#EDEDED",
+                oceancolor: "#FFF2",
+                landcolor: "#FFF0",
+                showland: false,
+                showocean: true,
+                showlakes: false,
+                showrivers: false,
+                showframe: false,
+                showcoastlines: true,
+            },
+            margin: {
+                t: 0,
+                l: 0,
+                r: 0,
+                b: 0,
+            },
+        }
+
+        // Plot configuration.
+        let config = {
+            staticPlot: true,
+            responsive: false,
+            showlink: false,
+            scrollZoom: false,
+            editable: false,
+        }
+
+        // Plotting chart.
+        let div = document.getElementById("map-chart-{{ id }}")
+        Plotly.newPlot(div, data, layout, config)
+
+    })
+</script>

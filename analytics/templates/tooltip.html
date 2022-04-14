@@ -1,0 +1,11 @@
+{% if text %}
+    <span
+        data-html="true"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="{{ text }}">
+            {{ wrapped }}
+    </span>
+{% else %}
+    {{ wrapped }}
+{% endif %}

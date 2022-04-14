@@ -1,0 +1,121 @@
+<div id="scatter-chart-{{ id }}"></div>
+<script>
+    $(document).ready(() => {
+
+        let data = [
+            {% for category, total in data.items %}
+                {% if forloop.counter <= 50 %}
+                    {
+                        x: {{ category }},
+                        y: {{ total }},
+                    },
+                {% endif %}
+            {% endfor %}
+        ]
+
+        var options = {
+
+            // Scatter plot data.
+            series: [{
+                data: data.map(x => [x.x, x.y]),
+            }],
+
+            // Chart configuration.
+            chart: {
+                height: "300px",
+                width: "100%",
+                type: "scatter",
+                padding: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                },  
+                toolbar: {
+                    show: false,
+                },
+            },
+
+            // Colors for the categories.
+            fill: {
+                colors: ["#EDEDED", "#BDC3C7"],
+            },
+
+            // Chart grid configuration.
+            grid: {
+                show: false,
+            },
+
+            // x-axis configuration
+            xaxis: {
+                decimalsInFloat: 0,
+                hideOverlappingLabels: true,
+                tickAmount: 5,
+                axisBorder: {
+                    show: true,
+                    color: '#EDEDED',
+                },
+                labels: {
+                    show: true,
+                    style: {
+                        colors: "#EDEDED",
+                        fontSize: "10px",
+                        fontFamily: "Montserrat",
+                    }
+                },
+                title: {
+                    show: false,
+                },
+            },
+
+            // y-axis configuration
+            yaxis: {
+                decimalsInFloat: 0,
+                labels: {
+                    color: "#330033",
+                    fontSize: "10px",
+                    fontFamily: "Montserrat",
+                },
+                title: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: true,
+                    color: '#EDEDED',
+                },
+                labels: {
+                    show: true,
+                    style: {
+                        colors: '#EDEDED',
+                        fontSize: '10px',
+                        fontFamily: 'Montserrat',
+                    }
+                },
+            },
+
+            // Scatter plot markers.
+            markers: {
+                size: 5,
+                colors: ["#EDEDED", "#BDC3C7"],
+                shape: "circle",
+                hover: {
+                    size: 9
+                }
+            },
+
+            // Tooltips configuration.
+            tooltip: {
+                custom: function(context) {
+                    let point = data[context.dataPointIndex]
+                    return `<p><b>${ point.x }</b>: ${ point.y } </p>`
+                }
+            },
+
+        }
+
+        // Rendering chart when the page loads.
+        let chart = new ApexCharts(document.querySelector("#scatter-chart-{{ id }}"), options)
+        chart.render()
+
+    })
+</script>

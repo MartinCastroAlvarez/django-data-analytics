@@ -1,0 +1,102 @@
+{% extends 'root.html' %}
+
+{% block 'title' %}Data Analytics{% endblock %}
+
+{% block 'body' %}
+    <div class='section'>
+        <h1>Data Analytics</h1>
+    </div>
+
+    <!-- Search form. -->
+    {% include 'search.html' %}
+
+    <!-- User Engagement. -->
+    <div class="row">
+        <div class="col col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
+            <div class='section'>
+                <h3>User Engagement</h3>
+                {% include 'line.html' with id="eve" data=events.by_date %}
+            </div>
+        </div>
+        <div class="col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+            <div class='section'>
+                <h3>Customer Journey</h3>
+                {% include 'line.html' with id="pag" data=events.by_page %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Profit & Losses. -->
+    <div class="row">
+        <div class="col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+            <div class='section'>
+                <h3>Margin by Month</h3>
+                {% include 'line.html' with id="mar" data=margin.by_month %}
+                {% include 'table.html' with data=margin.by_month %}
+            </div>
+        </div>
+        <div class="col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+            <div class='section'>
+                <h3>Margin by Campaign</h3>
+                {% include 'bar.html' with id="mbc" data=margin.by_campaign %}
+                {% include 'table.html' with data=margin.by_campaign %}
+            </div>
+        </div>
+        <div class="col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+            <div class='section'>
+                <h3>Average LTV by Campaign</h3>
+                {% include 'bar.html' with id="ltv" data=ltv.by_campaign %}
+                {% include 'table.html' with data=ltv.by_campaign %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Frequencies pie & bar charts. -->
+    <div class="row">
+        <div class="col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+            <div class='section'>
+                <h3>Subscriptions by Product</h3>
+                {% include 'pie.html' with id="pro" data=subscriptions.by_product %}
+                {% include 'table.html' with data=subscriptions.by_product %}
+            </div>
+        </div>
+        <div class="col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+            <div class='section'>
+                <h3>Average Retention by Product</h3>
+                {% include 'bar.html' with id="ret" data=retention.by_product %}
+                {% include 'table.html' with data=retention.by_product %}
+            </div>
+        </div>
+        <div class="col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+            <div class='section'>
+                <h3>Subscriptions by Audience</h3>
+                {% include 'pie.html' with id="aud" data=subscriptions.by_audience %}
+                {% include 'table.html' with data=subscriptions.by_audience %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Geolocation data. -->
+    <div class="row">
+        <div class="row">
+            <div class="col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                <div class='section'>
+                    {% include 'map.html' with id="eur" scope="europe" data=subscriptions.by_country %}
+                </div>
+            </div>
+            <div class="col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                <div class='section'>
+                    <h3>Subscriptions by Country</h3>
+                    {% include 'table.html' with data=subscriptions.by_country %}
+                </div>
+            </div>
+            <div class="col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                <div class='section'>
+                    {% include 'map.html' with id="wor" scope="world" data=subscriptions.by_country %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+{% endblock %}

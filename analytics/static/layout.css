@@ -1,0 +1,61 @@
+/* Layout style. */
+body {
+    background: url('bg.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    max-height: 100vh;
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden!important;
+    width: 100%;
+    user-select: none;
+}
+body .container-scroll {
+    overflow-y: auto;
+    overflow-x: hidden!important;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    padding-left: 0%;
+    padding-right: 0%;
+    height: 100vh;
+}
+* {
+    scrollbar-width: auto;
+    scrollbar-color: var(--primary) var(--white);
+}
+*::-webkit-scrollbar {
+    width: 12px;
+}
+*::-webkit-scrollbar-track {
+    background: var(--primary);
+}
+*::-webkit-scrollbar-thumb {
+    background-color: var(--white);
+    border-radius: 10px;
+    border: 4px solid var(--primary);
+}
+body .container-scroll .container {
+    display: block; 
+    color: var(--gray);
+    font-family: 'Montserrat', sans-serif;
+    user-select: none;
+    max-width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+body .container .section {
+    padding: 5px;
+    margin: 0%;
+    background: none;
+}
+body .container .col {
+    padding: 0%;
+    margin: 0%;
+}
+body .container .section .component {
+    padding: 1%;
+    margin: 0%;
+}

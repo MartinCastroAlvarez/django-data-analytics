@@ -1,0 +1,42 @@
+{% load wrapwith %}
+
+<!-- Dashboard search form -->
+<div class='section'>
+    <form action="" method="GET">
+        {% csrf_token %}
+        <div class="row">
+
+            <!-- Search input. -->
+            <div class="col component col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                {% wrapwith "tooltip.html" with text="Search by campaign, audience, product, etc" %}
+                    <input id="search" type="text" name="search"
+                        value="{{ filters.search }}" placeholder="Campaign, product, client, etc">
+                {% endwrapwith %}
+            </div>
+
+            <!-- Range start date. -->
+            <div class="col component col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                {% wrapwith "tooltip.html" with text="Restrict charts to a date range" %}
+                    <input id="start" type="date" name="start"
+                        value="{{ filters.start|date:'Y-m-d' }}" placeholder="From">
+                {% endwrapwith %}
+            </div>
+
+            <!-- Range end date. -->
+            <div class="col component col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                {% wrapwith "tooltip.html" with text="Restrict charts to a date range" %}
+                    <input id="end" type="date" name="end"
+                        value="{{ filters.end|date:'Y-m-d' }}" placeholder="End">
+                {% endwrapwith %}
+            </div>
+
+            <!-- Submit button -->
+            <div class="col component col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                {% wrapwith "tooltip.html" with text="Click to apply filters" %}
+                    <input type="submit" value="Search">
+                {% endwrapwith %}
+            </div>
+
+        </div>
+    </form>
+</div>

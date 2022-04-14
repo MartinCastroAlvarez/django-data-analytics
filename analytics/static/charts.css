@@ -1,0 +1,19 @@
+/* Charts style */
+.apexcharts-tooltip {
+    background: var(--lightgray)!important;
+    border: none!important;
+    padding: 5px!important;
+    border-radius: 0px!important;
+    box-shadow: 0px 0px 10px 0px var(--gray)!important;
+}
+.apexcharts-tooltip p {
+    font-size: 12px!important;
+    color: var(--primary)!important;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0px!important;
+}
+.table-container {
+    display: block;
+    width: 100%;
+    padding: 5% 20%;
+}

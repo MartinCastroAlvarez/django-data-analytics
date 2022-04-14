@@ -1,0 +1,18 @@
+{% load static %}
+
+<!-- Application Toolbar -->
+<div class='section'>
+    <p class="right">
+        <a href='{% static "model.png" %}' target='models'>
+            Models
+        <a/>
+        -
+        <a href='{% url "api-root" %}' target='api'>
+            API
+        <a/>
+        -
+        <a href='{% url "rest_framework:login" %}' target='login'>
+            Login
+        <a/>
+    </p>
+</div>

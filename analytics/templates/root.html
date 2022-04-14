@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block 'title' %}Django Analytics{% endblock %}</title>
+    {% include 'meta.html' %}
+    {% include 'links.html' %}
+    {% include 'scripts.html' %}
+    {% include 'icon.html' %}
+</head>
+<body>
+    <div class="container-scroll">
+        <div class="container">
+            {% include 'toolbar.html' %}
+            {% block 'body' %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

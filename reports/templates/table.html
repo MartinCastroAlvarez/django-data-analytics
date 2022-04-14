@@ -1,0 +1,46 @@
+{% load reports %}
+{% load mathfilters %}
+
+<div class="table-container">
+
+    <!-- Table body. -->
+    {% for category, total in data.items %}
+        {% if forloop.counter <= 15 %}
+            <div class="row">
+                <div class="col col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                    <p>
+                        {{ category.title }}
+                    </p>
+                </div>
+                <div class="col col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                    <p class="right">
+                        {% with data|total_frequency as total_frequency %}
+                            {{ total|div:total_frequency|mul:100|floatformat:2 }}%
+                        {% endwith at %}
+                    </p>
+                </div>
+                <div class="col col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                    <p class="right">
+                        <b>
+                            {{ total|floatformat:2 }}
+                        </b>
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Table summary. -->
+    <div class="row">
+        <div class="col col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"></div>
+        <div class="col col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"></div>
+        <div class="col col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+            <p class="right">
+                <b>
+                    {{ data|total_frequency|floatformat:2 }}
+                </b>
+            </p>
+        </div>
+    </div>
+
+</div>

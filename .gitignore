@@ -1,0 +1,8 @@
+.env/
+*pyc
+*.swp
+*.swo
+*.swm
+*.swn
+.ipynb_checkpoints/
+__pycache__/

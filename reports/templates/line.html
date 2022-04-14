@@ -1,0 +1,148 @@
+{% load mathfilters %}
+
+<div id="line-chart-{{ id }}"></div>
+<script>
+    $(document).ready(() => {
+
+        let data = [
+            {% for category, total in data.items %}
+                {% if forloop.counter > data|length|sub:60 %}
+                    {
+                        x: "{% firstof category.title category %}",
+                        y: {{ total }},
+                    },
+                {% endif %}
+            {% endfor %}
+        ]
+
+        var options = {
+
+            // Line chart dataset.
+            series: [{
+                data: data,
+            }],
+
+            // Chart configuration.
+            chart: {
+                height: "300px",
+                width: "100%",
+                type: "area",
+                parentHeightOffset: 0,
+                padding: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                },  
+                toolbar: {
+                    show: false,
+                },
+                animations: {
+                    enabled: false
+                },
+            },
+
+            // Trend line.
+            stroke: {
+                size: 1,
+                colors: ["#EDEDED", "#BDC3C7"],
+            },
+
+            // Hide values on top of each point.
+            dataLabels: {
+                enabled: false
+            },
+
+            // Chart area.
+            fill: {
+                type: "gradient",
+                colors: ["#EDEDED", "#BDC3C7"],
+                gradient: {
+                    shadeIntensity: 1,
+                    inverseColors: false,
+                    opacityFrom: 0.47,
+                    opacityTo: 0.05,
+                    stops: [20, 100, 100, 100]
+                },
+            },
+
+            // Chart marker.
+            markers: {
+                size: 5,
+                colors: ["#EDEDED", "#BDC3C7"],
+                shape: "circle",
+                hover: {
+                    size: 9
+                }
+            },
+
+            // Chart title.
+            title: {
+                show: false,
+            },
+
+            // Chart grid configuration.
+            grid: {
+                show: false,
+            },
+
+            // x-axis style.
+            // https://apexcharts.com/docs/options/xaxis/
+            xaxis: {
+                type: "category",
+                hideOverlappingLabels: true,
+                decimalsInFloat: 0,
+                tickAmount: 30,
+                labels: {
+                    rotate: -90,
+                    show: true,
+                    style: {
+                        colors: "#EDEDED",
+                        fontSize: "10px",
+                        fontFamily: "Montserrat",
+                    }
+                },
+                title: {
+                    show: false,
+                },
+            },
+
+            // y-axis style.
+            // https://apexcharts.com/docs/options/yaxis/
+            yaxis: {
+                type: "numeric",
+                tickAmount: 10,
+                decimalsInFloat: 0,
+                title: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: true,
+                    color: "#EDEDED",
+                },
+                labels: {
+                    show: true,
+                    style: {
+                        colors: "#EDEDED",
+                        fontSize: "10px",
+                        fontFamily: "Montserrat",
+                    }
+                },
+            },
+
+            // Tooltips configuration.
+            tooltip: {
+                custom: function(context) {
+                    let point = data[context.dataPointIndex]
+                    return `<p><b>${ point.x }</b>: ${ point.y } </p>`
+                }
+            }
+
+        }
+
+        // Rendering chart when the page loads.
+        let chart = new ApexCharts(document.querySelector("#line-chart-{{ id }}"), options)
+        chart.render()
+
+    })
+</script>

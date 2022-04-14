@@ -1,0 +1,98 @@
+from campaigns.models import Campaign
+from django.db import models
+from django.db.models import Q
+from django.db.models.query import QuerySet
+from pages.models import Page
+
+
+class ActiveManager(models.Manager):
+    """
+    Django Model Manager.
+    """
+
+    def get_queryset(self) -> QuerySet:
+        """
+        QuerySet filter for active rows.
+        """
+        return super().get_queryset().filter(deleted_at=None)
+
+    def search(
+        self, search: str = "", start: str = "", end: str = ""
+    ) -> QuerySet:
+        """
+        Search & filter active objects.
+        """
+        queryset: QuerySet = self.get_queryset()
+        if start and end:
+            queryset: QuerySet = queryset.filter(
+                created_at__gte=start,
+                created_at__lte=end,
+            )
+        if search:
+            queryset: Queryset = queryset.filter(
+                Q(campaign__title__icontains=search)
+                | Q(campaign__audience__title__icontains=search)
+                | Q(campaign__city__title__icontains=search)
+                | Q(campaign__city__state__title__icontains=search)
+                | Q(
+                    campaign__city__state__country__title__icontains=search
+                )
+                | Q(page__title__icontains=search)
+                | Q(page__url__icontains=search)
+                | Q(page__metadata__title__icontains=search)
+                | Q(page__metadata__site__icontains=search)
+                | Q(page__metadata__author__icontains=search)
+                | Q(page__metadata__keywords__icontains=search)
+                | Q(page__metadata__description__icontains=search)
+            )
+        return queryset
+
+
+class Type(models.TextChoices):
+    """
+    Metric Type Model.
+    """
+
+    VIEW: tuple = ("VI", "View")
+    CLICK: tuple = ("CL", "Click")
+
+
+class Metric(models.Model):
+    """
+    Campaign Metric Model
+    """
+
+    campaign: models.ForeignKey = models.ForeignKey(
+        Campaign,
+        on_delete=models.CASCADE,
+        null=False,
+    )
+    metric_type: models.CharField = models.CharField(
+        max_length=2,
+        choices=Type.choices,
+        default=Type.VIEW,
+        null=False,
+    )
+    page: models.ForeignKey = models.ForeignKey(
+        Page,
+        on_delete=models.CASCADE,
+        null=False,
+    )
+    created_at: models.DateTimeField = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at: models.DateTimeField = models.DateTimeField(
+        auto_now=True
+    )
+    deleted_at: models.DateTimeField = models.DateTimeField(
+        default=None, null=True
+    )
+
+    objects: models.Manager = models.Manager()
+    active: ActiveManager = ActiveManager()
+
+    def __str__(self) -> str:
+        """
+        String serializer.
+        """
+        return f"<{self.__class__.__name__}: {self.campaign.title}, {self.page.title}, {self.get_metric_type_display()}>"

@@ -1,0 +1,119 @@
+<div id="bar-chart-{{ id }}"></div>
+<script>
+    $(document).ready(() => {
+
+        let data = [
+            {% for category, total in data.items %}
+                {% if forloop.counter <= 15 %}
+                    {
+                        x: "{% firstof category.title category %}",
+                        y: {{ total }},
+                    },
+                {% endif %}
+            {% endfor %}
+        ]
+
+        let options = {
+
+            // Bar chart frequencies data.
+            series: [{
+                data: data,
+            }],
+
+            // Chart configuration.
+            chart: {
+                height: "300px",
+                width: "100%",
+                type: "bar",
+                parentHeightOffset: 0,
+                padding: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                },  
+                toolbar: {
+                    show: false,
+                },
+            },
+
+            // Chart grid configuration.
+            grid: {
+                show: false,
+            },
+
+            // Bar background colors.
+            fill: {
+                colors: ["#EDEDED", "#BDC3C7"],
+            },
+
+            // Labels on top of each bar.
+            dataLabels: {
+                enabled: false,
+            },
+
+            // Bar chart custom properties.
+            plotOptions: {
+                bar: {
+                    borderRadius: 0,
+                }
+            },
+
+            // x-axis style.
+            // https://apexcharts.com/docs/options/xaxis/
+            xaxis: {
+                type: "category",
+                hideOverlappingLabels: true,
+                decimalsInFloat: 0,
+                labels: {
+                    rotate: -90,
+                    show: true,
+                    style: {
+                        colors: "#EDEDED",
+                        fontSize: "10px",
+                        fontFamily: "Montserrat",
+                    }
+                },
+                title: {
+                    show: false,
+                },
+            },
+
+            // y-axis style.
+            // https://apexcharts.com/docs/options/yaxis/
+            yaxis: {
+                type: "numeric",
+                decimalsInFloat: 0,
+                title: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: true,
+                    color: "#EDEDED",
+                },
+                labels: {
+                    show: true,
+                    style: {
+                        colors: "#EDEDED",
+                        fontSize: "10px",
+                        fontFamily: "Montserrat",
+                    }
+                },
+            },
+
+            // Tooltips configuration.
+            tooltip: {
+                custom: function(context) {
+                    let point = data[context.dataPointIndex]
+                    return `<p><b>${ point.x }</b>: ${ point.y } </p>`
+                }
+            }
+
+        }
+
+        // Rendering chart when the page loads.
+        let chart = new ApexCharts(document.querySelector("#bar-chart-{{ id }}"), options)
+        chart.render()
+
+    })
+</script>
