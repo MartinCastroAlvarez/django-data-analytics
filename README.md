@@ -7,6 +7,10 @@ Campaign metrics analytics in Django
 
 ![img](./analytics/static/model.png)
 
+## Jupyter Notebook
+
+[Click here to open the Notebook](./api.ipynb)
+
 ## Gallery
 
 #### Engagement Optimization
